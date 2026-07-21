@@ -42,7 +42,3 @@ jobs:
         with:
           name: ${{ matrix.toolchain }}
           path: trunk/images/*.trx
-          commit: ${{ github.sha }}
-          tag: ${{ env.TAG_ANME }}
-          artifacts: "mipsel-linux-musl/*.trx"
-          allowUpdates: true
