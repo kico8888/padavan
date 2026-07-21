@@ -325,12 +325,7 @@ get_eeprom_params(void)
 	if (strlen(FWBLDSTR) > 0 && strlen(FWBLDSTR) <= 4) {
 		strcat(fwver_sub, "-");
 		strcat(fwver_sub, FWBLDSTR);
-	}
-#endif
-#if defined(FWREVSTR)
-	if (strlen(FWREVSTR) > 0 && strlen(FWREVSTR) <= 8) {
-		strcat(fwver_sub, "_");
-		strcat(fwver_sub, FWREVSTR);
+		strcat(fwver_sub, " USB NAS");
 	}
 #endif
 	nvram_set_temp("productid", trim_r(productid));
