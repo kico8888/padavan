@@ -612,6 +612,7 @@ write_smb_conf_header(void)
 	fprintf(fp, "disable spoolss = yes\n");
 	fprintf(fp, "use sendfile = yes\n");
 	fprintf(fp, "min receivefile size = 16384\n");
+	fprintf(fp, "strict allocate = yes\n");
 #if defined (APP_SMBD36)
 	fprintf(fp, "max protocol = SMB2\n");
 	fprintf(fp, "passdb backend = smbpasswd\n");
