@@ -412,6 +412,8 @@ restart_all_sysctl(void)
 #if defined(APP_SMBD)
 	config_smb_fastpath(1);
 #endif
+
+	set_pagecache_reclaim();
 }
 
 void
