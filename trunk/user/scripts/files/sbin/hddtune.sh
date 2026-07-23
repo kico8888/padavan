@@ -47,13 +47,21 @@ if [ $hdd_apmoff -ne 0 ] ; then
 fi
 
 if [ -z "$1" ] ; then
-	for i in a b c d e f g h i k ; do
-		removable=1
-		if [ -e /sys/block/sd${i} ] ; then
-			[ -r /sys/block/sd${i}/removable ] && removable=`cat /sys/block/sd${i}/removable`
-			[ $removable -eq 0 ] && /sbin/hdparm $HDPARM_S $HDPARM_B /dev/sd${i}
-		fi
-	done
+    for disk in /sys/block/sd*; do
+        [ -d "$disk" ] || continue
+
+        dev=$(basename "$disk")
+        removable=1
+
+        [ -r "$disk/removable" ] && removable=$(cat "$disk/removable")
+
+        if [ "$removable" -eq 0 ]; then
+            if [ "$HDPARM_S" != "-S0" ] || [ -n "$HDPARM_B" ]; then
+                logger -t hdparm "Apply $HDPARM_S $HDPARM_B to /dev/$dev"
+                /sbin/hdparm $HDPARM_S $HDPARM_B /dev/$dev >/dev/null 2>&1
+            fi
+        fi
+    done
 else
 	if [ -e /sys/block/$1 ] ; then
 		removable=1
