@@ -239,7 +239,7 @@ write_smb_conf(void)
 		fprintf(fp, "guest ok = %s\n", "yes");
 		fprintf(fp, "guest only = yes\n");
 		fprintf(fp, "guest account = %s\n", rootnm);
-	} else if ((i_smb_mode == 2 || i_smb_mode == 4) {
+	} else if (i_smb_mode == 2 || i_smb_mode == 4) {
 #if !defined (APP_SMBD36)
 		fprintf(fp, "security = %s\n", "USER");
 #endif
