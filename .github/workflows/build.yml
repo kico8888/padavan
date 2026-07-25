@@ -1,9 +1,9 @@
 name: build
 
-on: 
+on:
   push:
     branches:
-    - "*"
+      - "*"
   workflow_dispatch:
 
 jobs:
@@ -13,32 +13,116 @@ jobs:
       matrix:
         target: [MI-R3P]
         toolchain: [mipsel-linux-musl]
+
     steps:
       - uses: actions/checkout@v3
+
       - uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ matrix.target }}-${{ matrix.toolchain }}
+
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.20'
+          go-version: "1.20"
           check-latest: true
           cache: false
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           check-latest: true
+
       - name: Prepare
         run: |
           sudo apt update
-          sudo apt install libtool-bin gperf python3-docutils autopoint gettext ccache libxml2-dev
+          sudo apt install -y \
+            libtool-bin \
+            gperf \
+            python3-docutils \
+            autopoint \
+            gettext \
+            ccache \
+            libxml2-dev
+
       - name: Build
         run: |
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
+
           if [ "${{ matrix.target }}" = "K2P-NANO" ]; then
             image=$(ls trunk/images/*.trx)
-            mv $image $(echo $image | sed 's/K2P/K2P-NANO/')
+            mv "$image" "$(echo "$image" | sed 's/K2P/K2P-NANO/')"
           fi
+
+      - name: Verify VPN Web Pages
+        run: |
+          echo "========== VPN source files =========="
+          find trunk/user/www -maxdepth 1 \
+            \( -name "vpnsrv.asp" -o -name "vpncli.asp" -o -name "vpn_clients.asp" \) \
+            -print | sort
+
+          echo
+          echo "========== VPN files after build =========="
+          find trunk \
+            \( -path "*/www/vpnsrv.asp" -o \
+               -path "*/www/vpncli.asp" -o \
+               -path "*/www/vpn_clients.asp" \) \
+            -print | sort
+
+          VPNSRV=$(find trunk -path "*/www/vpnsrv.asp" ! -path "trunk/user/www/*" -print -quit)
+          VPNCLI=$(find trunk -path "*/www/vpncli.asp" ! -path "trunk/user/www/*" -print -quit)
+          VPNCLIENTS=$(find trunk -path "*/www/vpn_clients.asp" ! -path "trunk/user/www/*" -print -quit)
+
+          if [ -z "$VPNSRV" ]; then
+            echo "::error::vpnsrv.asp 未安裝到編譯後的 WWW 目錄"
+            exit 1
+          fi
+
+          if [ -z "$VPNCLI" ]; then
+            echo "::error::vpncli.asp 未安裝到編譯後的 WWW 目錄"
+            exit 1
+          fi
+
+          if [ -z "$VPNCLIENTS" ]; then
+            echo "::error::vpn_clients.asp 未安裝到編譯後的 WWW 目錄"
+            exit 1
+          fi
+
+          echo "VPN web pages verification passed."
+          echo "Server page: $VPNSRV"
+          echo "Client page: $VPNCLI"
+          echo "Client list: $VPNCLIENTS"
+
+      - name: Show firmware images
+        run: |
+          echo "========== Firmware images =========="
+          ls -lh trunk/images/*.trx
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.toolchain }}
           path: trunk/images/*.trx
+
+  publish:
+    needs: [build]
+    runs-on: ubuntu-22.04
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v4
+
+      - name: Set Tag Name
+        run: echo "TAG_NAME=$(date +%Y%m%d)" >> "$GITHUB_ENV"
+
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ env.TAG_NAME }}
+          force_push_tag: true
+
+      - uses: ncipollo/release-action@v1
+        with:
+          commit: ${{ github.sha }}
+          tag: ${{ env.TAG_NAME }}
+          artifacts: "mipsel-linux-musl/*.trx"
+          allowUpdates: true
