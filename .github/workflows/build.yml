@@ -92,6 +92,20 @@ jobs:
           echo "Client page: $VPNCLI"
           echo "Client list: $VPNCLIENTS"
 
+      - name: Check rc binary
+        run: |
+          echo "========== rc binary =========="
+          file trunk/romfs/sbin/rc || true
+
+          echo "========== restart_vpn_server link =========="
+          ls -l trunk/romfs/sbin/restart_vpn_server || true
+
+          echo "========== rc md5 =========="
+          md5sum trunk/romfs/sbin/rc || true
+
+          echo "========== rc identification string =========="
+          strings trunk/romfs/sbin/rc | grep "cannot run rc directly" || true
+      
       - name: Show firmware images
         run: |
           echo "========== Firmware images =========="
