@@ -380,7 +380,7 @@ struct nvram_pair router_defaults[] = {
 	{ "enable_ftp", "0" },
 	{ "enable_samba", "1" },
 	{ "st_samba_fp", "1" },
-	{ "st_samba_mode", "2" },
+	{ "st_samba_mode", "4" },
 	{ "st_samba_lmb", "1" },
 	{ "st_samba_workgroup", DEF_SMB_WORKGROUP },
 	{ "st_ftp_mode", "1" },
