@@ -230,12 +230,19 @@ endif
 ifneq ($(CONFIG_FIRMWARE_INCLUDE_SMARTDNS),y)
 	rm -f $(INSTALLDIR)/www/Advanced_smartdns.asp
 endif
+# VPN Server WebUI
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_OPENVPN),y)
 ifneq ($(CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_SERVER),y)
 	rm -f $(INSTALLDIR)/www/vpnsrv.asp
-endif
-ifneq ($(CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT),y)
 	rm -f $(INSTALLDIR)/www/vpn_clients.asp
+endif
+endif
+
+# VPN Client WebUI
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_OPENVPN),y)
+ifneq ($(CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT),y)
 	rm -f $(INSTALLDIR)/www/vpncli.asp
+endif
 endif
 clean:
 	@echo "Clean www romfs"
