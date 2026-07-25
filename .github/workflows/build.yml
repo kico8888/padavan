@@ -102,6 +102,10 @@ jobs:
 
           echo "========== rc identification string =========="
           strings trunk/romfs/sbin/rc | grep "cannot run rc directly" || true
+
+          echo "========== find xtables calls =========="
+          grep -RInE "xtables-multi|IPTABLES|iptables-restore|iptables-save" \
+            trunk/user/rc trunk/user/shared trunk/user/lib 2>/dev/null || true
       
       - name: Show firmware images
         run: |
