@@ -39,9 +39,8 @@ download:
 		curl -fSsLo- $(TOOLCHAIN_URL) | tar Jx -C $(CT_PREFIX); \
 	fi
 ifeq ($(CT_TARGET),mipsel-linux-musl)
-	@if [ ! -f $(CT_PREFIX)/$(CT_TARGET)/sysroot/usr/include/sys/queue.h ]; then \
-		echo "Installing sys/queue.h..."; \
-		curl -fSsL -o $(CT_PREFIX)/$(CT_TARGET)/sysroot/usr/include/sys/queue.h \
-			"https://sourceware.org/git/?p=glibc.git;a=blob_plain;f=misc/sys/queue.h;hb=HEAD" ; \
-	fi
+	@mkdir -p $(CT_PREFIX)/$(CT_TARGET)/sysroot/usr/include/sys
+	@curl -fSsL \
+		"https://raw.githubusercontent.com/bminor/glibc/master/misc/sys/queue.h" \
+		-o $(CT_PREFIX)/$(CT_TARGET)/sysroot/usr/include/sys/queue.h
 endif
