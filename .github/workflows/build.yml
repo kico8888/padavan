@@ -153,6 +153,11 @@ jobs:
             -name "config.h" \
             -type f \
             -print 2>/dev/null || true
+
+          echo "========== config.h IPv4 IPv6 related =========="
+          grep -nEi "ipv4|ipv6|ip6tables|iptables" \
+            trunk/build/iptables-1.8.7/config.h \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
