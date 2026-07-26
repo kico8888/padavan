@@ -106,6 +106,10 @@ jobs:
           echo "========== find xtables calls =========="
           grep -RInE "xtables-multi|IPTABLES|iptables-restore|iptables-save" \
             trunk/user/rc trunk/user/shared trunk/user/lib 2>/dev/null || true
+
+          echo "========== find doSystem definition =========="
+          grep -RInE "^[a-zA-Z_].*doSystem|doSystem[[:space:]]*\\(" \
+            trunk/user/shared trunk/user/lib trunk/user/rc 2>/dev/null | head -50 || true
       
       - name: Show firmware images
         run: |
