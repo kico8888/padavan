@@ -158,6 +158,14 @@ jobs:
           grep -nEi "ipv4|ipv6|ip6tables|iptables" \
             trunk/build/iptables-1.8.7/config.h \
             2>/dev/null || true
+
+          echo "========== find ENABLE_IPV4 ENABLE_IPV6 definitions =========="
+          grep -RInE "ENABLE_IPV4|ENABLE_IPV6" \
+            trunk/user/iptables \
+            trunk/configs \
+            trunk/Makefile \
+            trunk/build/iptables-1.8.7/Makefile* \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
