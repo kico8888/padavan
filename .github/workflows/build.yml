@@ -146,6 +146,13 @@ jobs:
             trunk/build/iptables-1.8.7/config.h \
             trunk/user/iptables/iptables-1.8.7/config.h \
             2>/dev/null || true
+
+          echo "========== find iptables config.h =========="
+          find trunk \
+            -path "*iptables-1.8.7*" \
+            -name "config.h" \
+            -type f \
+            -print 2>/dev/null || true
       
       - name: Show firmware images
         run: |
