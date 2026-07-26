@@ -194,6 +194,13 @@ static mainfunc_t subcmd_get(const char *cmd, const struct subcommand *cb)
 int subcmd_main(int argc, char **argv, const struct subcommand *cb)
 {
 	const char *cmd = basename(*argv);
+
+	fprintf(stderr,
+		"XTDBG: argc=%d argv0=[%s] basename=[%s]\n",
+		argc,
+		(argv && argv[0]) ? argv[0] : "(null)",
+		cmd ? cmd : "(null)");
+	
 	mainfunc_t f = subcmd_get(cmd, cb);
 
 	if (f == NULL && argc > 1) {
