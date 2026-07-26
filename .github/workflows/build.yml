@@ -125,6 +125,11 @@ jobs:
 
           echo "========== xtables subcommand detection =========="
           sed -n '170,235p' trunk/user/iptables/iptables-1.8.7/iptables/xshared.c || true
+
+          echo "========== subcmd_main callers =========="
+          grep -RIn "subcmd_main" \
+            trunk/user/iptables/iptables-1.8.7 \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
