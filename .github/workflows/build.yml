@@ -114,6 +114,7 @@ jobs:
           echo "========== doSystem implementation =========="
           sed -n '430,465p' trunk/user/shared/src/shutils.c || true
 
+          echo "========== iptables applet links =========="
           find trunk/romfs/bin trunk/romfs/sbin trunk/romfs/usr/bin trunk/romfs/usr/sbin \
             -maxdepth 1 \
             \( -name "iptables*" -o -name "xtables*" \) \
