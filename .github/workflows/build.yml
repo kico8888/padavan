@@ -140,6 +140,12 @@ jobs:
           sed -n '1,90p' \
             trunk/user/iptables/iptables-1.8.7/iptables/xtables-legacy-multi.c \
             || true
+
+          echo "========== iptables generated config IPv6 =========="
+          grep -nE "ENABLE_IPV6|DISABLE_IPV6" \
+            trunk/build/iptables-1.8.7/config.h \
+            trunk/user/iptables/iptables-1.8.7/config.h \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
