@@ -110,6 +110,9 @@ jobs:
           echo "========== find doSystem definition =========="
           grep -RInE "^[a-zA-Z_].*doSystem|doSystem[[:space:]]*\\(" \
             trunk/user/shared trunk/user/lib trunk/user/rc 2>/dev/null | head -50 || true
+          
+          echo "========== doSystem implementation =========="
+          sed -n '430,465p' trunk/user/shared/src/shutils.c
       
       - name: Show firmware images
         run: |
