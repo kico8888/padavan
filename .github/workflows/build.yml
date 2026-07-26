@@ -119,6 +119,9 @@ jobs:
             -maxdepth 1 \
             \( -name "iptables*" -o -name "xtables*" \) \
             -exec ls -l {} \; 2>/dev/null || true
+
+          echo "========== find xtables error source =========="
+          grep -RInF "No valid subcommand given" trunk 2>/dev/null || true
       
       - name: Show firmware images
         run: |
