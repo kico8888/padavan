@@ -290,10 +290,16 @@ restart_vpn_server(void)
 
 	xl2tpd_killed_vpns = 0;
 
+	logmessage("VPNDBG", "1 before stop_vpn_server");
 	stop_vpn_server();
+	
+	logmessage("VPNDBG", "2 before start_vpn_server");
 	start_vpn_server();
 
+	logmessage("VPNDBG", "3 before restart_firewall");
 	restart_firewall();
+
+	logmessage("VPNDBG", "4 restart_firewall done");
 
 #if defined(APP_NFSD)
 	reload_nfsd();
