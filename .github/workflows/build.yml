@@ -43,7 +43,7 @@ jobs:
 
       - name: Build
         run: |
-          echo "========== Clear iptables build cache =========="
+          echo "========== Clear iptables  build cache =========="
           rm -rf trunk/build/iptables-1.8.7
           
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
@@ -52,6 +52,18 @@ jobs:
             image=$(ls trunk/images/*.trx)
             mv "$image" "$(echo "$image" | sed 's/K2P/K2P-NANO/')"
           fi
+
+      - name: Enable IPv6 for MI-R3P
+        run: |
+          sed -i \
+            '/CONFIG_FIRMWARE_ENABLE_IPV6/d' \
+            trunk/configs/templates/MI-R3P.config
+            
+          echo "CONFIG_FIRMWARE_ENABLE_IPV6=y" \
+            >> trunk/configs/templates/MI-R3P.config
+            
+          grep -n "CONFIG_FIRMWARE_ENABLE_IPV6" \
+            trunk/configs/templates/MI-R3P.config
 
       - name: Verify VPN Web Pages
         run: |
