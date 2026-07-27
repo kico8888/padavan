@@ -49,7 +49,8 @@ jobs:
             
           echo "CONFIG_FIRMWARE_ENABLE_IPV6=y" \
             >> trunk/configs/templates/MI-R3P.config
-            
+
+          echo "========== Verify IPv6 config =========="
           grep -n "CONFIG_FIRMWARE_ENABLE_IPV6" \
             trunk/configs/templates/MI-R3P.config
       
