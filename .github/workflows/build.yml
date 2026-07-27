@@ -176,6 +176,14 @@ jobs:
             trunk/configs/templates/MI-R3P.config \
             trunk/.config \
             2>/dev/null || true
+
+          echo "========== actual MI-R3P IPv6 config =========="
+          grep -RIn "CONFIG_FIRMWARE_ENABLE_IPV6" \
+            trunk/configs/templates/MI-R3P.config \
+            configs/templates/MI-R3P.config \
+            trunk/.config \
+            .config \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
