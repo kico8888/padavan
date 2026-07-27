@@ -43,6 +43,9 @@ jobs:
 
       - name: Build
         run: |
+          echo "========== Clear iptables build cache =========="
+          rm -rf trunk/build/iptables-1.8.
+          
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
 
           if [ "${{ matrix.target }}" = "K2P-NANO" ]; then
