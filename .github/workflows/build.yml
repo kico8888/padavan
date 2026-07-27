@@ -206,6 +206,11 @@ jobs:
             trunk/user/www \
             trunk/user/scripts \
             2>/dev/null | head -100 || true
+
+          echo "========== create_server_cert function =========="
+          sed -n '495,530p' \
+            trunk/user/www/n56u_ribbon_fixed/vpnsrv.asp \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
