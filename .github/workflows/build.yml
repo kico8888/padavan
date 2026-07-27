@@ -211,6 +211,13 @@ jobs:
           sed -n '495,530p' \
             trunk/user/www/n56u_ribbon_fixed/vpnsrv.asp \
             2>/dev/null || true
+
+          echo "========== find CreateCertOVPNS handler =========="
+          grep -RInF "CreateCertOVPNS" \
+            trunk/user/httpd \
+            trunk/user/rc \
+            trunk/user/shared \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
