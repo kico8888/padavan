@@ -166,6 +166,13 @@ jobs:
             trunk/Makefile \
             trunk/build/iptables-1.8.7/Makefile* \
             2>/dev/null || true
+
+          echo "========== MI-R3P firmware IPv6 setting =========="
+          grep -n "CONFIG_FIRMWARE_ENABLE_IPV6" \
+            trunk/configs/boards/MI-R3P/board.h \
+            trunk/configs/templates/MI-R3P.config \
+            trunk/.config \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
