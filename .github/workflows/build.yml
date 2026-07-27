@@ -197,6 +197,15 @@ jobs:
             trunk/.config \
             .config \
             2>/dev/null || true
+
+          echo "========== find VPN certificate generation code =========="
+          grep -RInE \
+            "ca\.crt|server\.crt|server\.key|openssl.*req|gen.*cert|create.*cert" \
+            trunk/user/rc \
+            trunk/user/httpd \
+            trunk/user/www \
+            trunk/user/scripts \
+            2>/dev/null | head -100 || true
       
       - name: Show firmware images
         run: |
