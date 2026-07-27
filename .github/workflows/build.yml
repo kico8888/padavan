@@ -44,7 +44,7 @@ jobs:
       - name: Build
         run: |
           echo "========== Clear iptables build cache =========="
-          rm -rf trunk/build/iptables-1.8.
+          rm -rf trunk/build/iptables-1.8.7
           
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
 
