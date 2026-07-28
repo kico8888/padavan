@@ -229,6 +229,11 @@ jobs:
             "vpnsrv\.asp|vpncli\.asp|VPN Server|VPN Client|menuL2_title|tabtitle|tablink" \
             trunk/user/www/n56u_ribbon_fixed \
             2>/dev/null | head -150 || true
+
+          echo "========== VPN menuL1 definitions =========="
+          sed -n '550,625p' \
+            trunk/user/www/n56u_ribbon_fixed/state.js \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
