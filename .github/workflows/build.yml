@@ -270,6 +270,13 @@ jobs:
           sed -n '215,245p' \
             trunk/user/cflags.mk \
             2>/dev/null || true
+
+          echo "========== OpenVPN config and CFLAGS =========="
+          grep -RInE \
+            "CONFIG_FIRMWARE_INCLUDE_OPENVPN|APP_OPENVPN|OPENVPN_SERVER|OPENVPN_CLIENT" \
+            trunk/user/cflags.mk \
+            trunk/configs \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
