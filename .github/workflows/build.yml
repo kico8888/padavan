@@ -234,6 +234,12 @@ jobs:
           sed -n '550,625p' \
             trunk/user/www/n56u_ribbon_fixed/state.js \
             2>/dev/null || true
+
+          echo "========== find found_app_vpn functions =========="
+          grep -RInE \
+            "function[[:space:]]+found_app_vpnsvr|function[[:space:]]+found_app_vpncli|found_app_vpnsvr[[:space:]]*\\(|found_app_vpncli[[:space:]]*\\(" \
+            trunk/user/www/n56u_ribbon_fixed \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
