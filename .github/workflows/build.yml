@@ -218,6 +218,11 @@ jobs:
             trunk/user/rc \
             trunk/user/shared \
             2>/dev/null || true
+
+          echo "========== CreateCertOVPNS handler code =========="
+          sed -n '3540,3615p' \
+            trunk/user/httpd/src/web_ex.c \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
