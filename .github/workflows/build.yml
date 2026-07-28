@@ -265,6 +265,11 @@ jobs:
             trunk/configs \
             trunk/Makefile \
             2>/dev/null || true
+
+          echo "========== VPN CFLAGS conditions =========="
+          sed -n '215,245p' \
+            trunk/user/cflags.mk \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
