@@ -253,6 +253,11 @@ jobs:
           sed -n '1,180p' \
             trunk/user/www/n56u_ribbon_fixed/state.js \
             2>/dev/null || true
+
+          echo "========== VPN capability compile conditions =========="
+          sed -n '2575,2605p' \
+            trunk/user/httpd/src/web_ex.c \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
