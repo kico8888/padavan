@@ -258,6 +258,13 @@ jobs:
           sed -n '2575,2605p' \
             trunk/user/httpd/src/web_ex.c \
             2>/dev/null || true
+
+          echo "========== find APP_VPNSVR APP_VPNCLI definitions =========="
+          grep -RInE "APP_VPNSVR|APP_VPNCLI" \
+            trunk/user \
+            trunk/configs \
+            trunk/Makefile \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
