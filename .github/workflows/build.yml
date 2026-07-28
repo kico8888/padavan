@@ -240,6 +240,19 @@ jobs:
             "function[[:space:]]+found_app_vpnsvr|function[[:space:]]+found_app_vpncli|found_app_vpnsvr[[:space:]]*\\(|found_app_vpncli[[:space:]]*\\(" \
             trunk/user/www/n56u_ribbon_fixed \
             2>/dev/null || true
+
+          echo "========== find VPN app detection definitions =========="
+          grep -RInE \
+            "found_app_vpnsvr|found_app_vpncli" \
+            trunk/user/www \
+            trunk/user/httpd \
+            trunk/user/shared \
+            2>/dev/null || true
+
+          echo "========== state.js beginning =========="
+          sed -n '1,180p' \
+            trunk/user/www/n56u_ribbon_fixed/state.js \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
