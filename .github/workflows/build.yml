@@ -223,6 +223,12 @@ jobs:
           sed -n '3540,3615p' \
             trunk/user/httpd/src/web_ex.c \
             2>/dev/null || true
+
+          echo "========== find VPN menu definitions =========="
+          grep -RInE \
+            "vpnsrv\.asp|vpncli\.asp|VPN Server|VPN Client|menuL2_title|tabtitle|tablink" \
+            trunk/user/www/n56u_ribbon_fixed \
+            2>/dev/null | head -150 || true
       
       - name: Show firmware images
         run: |
