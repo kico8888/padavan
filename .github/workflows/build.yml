@@ -288,6 +288,11 @@ jobs:
             trunk/user/shared \
             trunk/user/rc \
             2>/dev/null | head -150 || true
+
+          echo "========== HTTP protocol selector code =========="
+          sed -n '305,350p' \
+            trunk/user/www/n56u_ribbon_fixed/Advanced_Services_Content.asp \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
