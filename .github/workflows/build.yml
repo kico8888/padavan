@@ -299,6 +299,12 @@ jobs:
             "function[[:space:]]+http_proto_change|http_proto_change\\(|row_http_proto|found_app.*https|support.*https|http_proto.*disabled" \
             trunk/user/www/n56u_ribbon_fixed/Advanced_Services_Content.asp \
             2>/dev/null || true
+
+          echo "========== HTTP protocol JavaScript logic =========="
+          grep -nE \
+            "function[[:space:]]+http_proto_change|http_proto_change\\(|row_http_proto|found_app.*https|support.*https|http_proto.*disabled" \
+            trunk/user/www/n56u_ribbon_fixed/Advanced_Services_Content.asp \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
