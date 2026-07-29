@@ -279,6 +279,15 @@ jobs:
             trunk/user/cflags.mk \
             trunk/configs \
             2>/dev/null || true
+
+          echo "========== find HTTP Web service protocol setting =========="
+          grep -RInE \
+            "http_proto|http_enable|https_enable|https_lanport|http_lanport|Web.*Server.*Protocol|HTTP Web" \
+            trunk/user/www \
+            trunk/user/httpd \
+            trunk/user/shared \
+            trunk/user/rc \
+            2>/dev/null | head -150 || true
       
       - name: Show firmware images
         run: |
