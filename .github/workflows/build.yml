@@ -324,6 +324,14 @@ jobs:
           sed -n '2645,2665p' \
             trunk/user/httpd/src/web_ex.c \
             2>/dev/null || true
+
+          echo "========== find SUPPORT_HTTPS definitions =========="
+          grep -RInE "SUPPORT_HTTPS|CONFIG_FIRMWARE.*HTTPS|INCLUDE.*HTTPS" \
+            trunk/user/cflags.mk \
+            trunk/user \
+            trunk/configs \
+            trunk/Makefile \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
