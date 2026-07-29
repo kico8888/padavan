@@ -310,6 +310,15 @@ jobs:
           sed -n '50,85p' \
             trunk/user/www/n56u_ribbon_fixed/Advanced_Services_Content.asp \
             2>/dev/null || true
+
+          echo "========== find support_http_ssl definition =========="
+          grep -RInE \
+            "support_http_ssl[[:space:]]*\\(|http_ssl" \
+            trunk/user/www \
+            trunk/user/httpd \
+            trunk/user/shared \
+            trunk/user/rc \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
