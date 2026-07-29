@@ -319,6 +319,11 @@ jobs:
             trunk/user/shared \
             trunk/user/rc \
             2>/dev/null || true
+
+          echo "========== HTTP SSL capability compile condition =========="
+          sed -n '2645,2665p' \
+            trunk/user/httpd/src/web_ex.c \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
