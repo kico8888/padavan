@@ -91,6 +91,12 @@ jobs:
           echo "========== Verify OpenSSL detection =========="
           grep -n -A4 -B3 'has_openssl_util' \
             trunk/user/httpd/src/web_ex.c
+
+      - name: Find HTTPS certificate handler
+        run: |
+          grep -R -n -A12 -B8 \
+            'CreateCertHTTPS' \
+            trunk/user 2>/dev/null || true
       
       - name: Build
         run: |
