@@ -55,16 +55,16 @@ jobs:
             trunk/configs/templates/MI-R3P.config
 
       - name: Enable HTTPS for MI-R3P
-      run: |
-        sed -i \
+        run: |
+          sed -i \
           '/CONFIG_FIRMWARE_INCLUDE_HTTPS=/d' \
           trunk/configs/templates/MI-R3P.config
           
-        echo "CONFIG_FIRMWARE_INCLUDE_HTTPS=y" \
+          echo "CONFIG_FIRMWARE_INCLUDE_HTTPS=y" \
           >> trunk/configs/templates/MI-R3P.config
           
-        echo "========== Verify HTTPS config =========="
-        grep -n "CONFIG_FIRMWARE_INCLUDE_HTTPS" \
+          echo "========== Verify HTTPS config =========="
+          grep -n "CONFIG_FIRMWARE_INCLUDE_HTTPS" \
           trunk/configs/templates/MI-R3P.config
       
       - name: Build
