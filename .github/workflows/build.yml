@@ -97,6 +97,13 @@ jobs:
           grep -R -n -A12 -B8 \
             'CreateCertHTTPS' \
             trunk/user 2>/dev/null || true
+
+      - name: Show HTTPS certificate script
+        run: |
+          find trunk -name 'https-cert.sh' -print
+          grep -R -n -A80 -B10 \
+            '/usr/bin/openssl\|OPENSSL=' \
+            trunk/user 2>/dev/null || true
       
       - name: Build
         run: |
