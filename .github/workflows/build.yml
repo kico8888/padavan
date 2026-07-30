@@ -66,6 +66,11 @@ jobs:
           echo "========== Verify HTTPS config =========="
           grep -n "CONFIG_FIRMWARE_INCLUDE_HTTPS" \
           trunk/configs/templates/MI-R3P.config
+
+      - name: Find OpenSSL hook
+        run: |
+          grep -R -n -E 'openssl_util_hook|openssl_util_found' \
+            trunk 2>/dev/null || tru
       
       - name: Build
         run: |
