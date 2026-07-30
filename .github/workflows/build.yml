@@ -70,6 +70,16 @@ jobs:
       - name: Show OpenSSL hook implementation
         run: |
           sed -n '2900,2940p' trunk/user/httpd/src/web_ex.c
+
+      - name: Fix OpenSSL detection path
+        run: |
+          sed -i \
+            's|f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")|f_exists("/bin/openssl") || f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")|' \
+            trunk/user/httpd/src/web_ex.c
+
+          echo "========== Verify OpenSSL detection =========="
+          grep -n -A3 -B2 'has_openssl_util' \
+            trunk/user/httpd/src/web_ex.c
       
       - name: Build
         run: |
