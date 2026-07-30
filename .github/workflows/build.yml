@@ -345,6 +345,19 @@ jobs:
             trunk/configs \
             trunk/Makefile \
             2>/dev/null || true
+
+          echo "========== find HTTPS certificate generator =========="
+          grep -RInE \
+            "Server CN|Days valid|EC P-256|CreateCertHTTPS|create.*cert|https.*gen" \
+            trunk/user/www/n56u_ribbon_fixed \
+            trunk/user/httpd \
+            2>/dev/null || true
+
+          echo "========== HTTPS certificate page section =========="
+          grep -nE \
+            "row_https|https.*cert|Server CN|Days valid|rsa_bits|common_name" \
+            trunk/user/www/n56u_ribbon_fixed/Advanced_Services_Content.asp \
+            2>/dev/null || true
       
       - name: Show firmware images
         run: |
