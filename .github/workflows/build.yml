@@ -67,10 +67,9 @@ jobs:
           grep -n "CONFIG_FIRMWARE_INCLUDE_HTTPS" \
           trunk/configs/templates/MI-R3P.config
 
-      - name: Find OpenSSL hook
+      - name: Show OpenSSL hook implementation
         run: |
-          grep -R -n -E 'openssl_util_hook|openssl_util_found' \
-            trunk 2>/dev/null || tru
+          sed -n '2900,2940p' trunk/user/httpd/src/web_ex.c
       
       - name: Build
         run: |
