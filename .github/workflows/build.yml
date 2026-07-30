@@ -73,12 +73,23 @@ jobs:
 
       - name: Fix OpenSSL detection path
         run: |
-          sed -i \
-            's|f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")|f_exists("/bin/openssl") || f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")|' \
-            trunk/user/httpd/src/web_ex.c
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("trunk/user/httpd/src/web_ex.c")
+          text = path.read_text()
+
+          old = 'f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")'
+          new = 'f_exists("/bin/openssl") || f_exists("/usr/bin/openssl") || f_exists("/opt/bin/openssl")'
+
+          if old not in text:
+              raise SystemExit("OpenSSL detection source text not found")
+
+          path.write_text(text.replace(old, new, 1))
+          PY
 
           echo "========== Verify OpenSSL detection =========="
-          grep -n -A3 -B2 'has_openssl_util' \
+          grep -n -A4 -B3 'has_openssl_util' \
             trunk/user/httpd/src/web_ex.c
       
       - name: Build
