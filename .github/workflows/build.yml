@@ -139,6 +139,12 @@ jobs:
           grep -R -n -A80 -B30 \
             'DHCP.*log\|dhcp.*log\|dnsmasq.conf\|dnsmasq.servers' \
             trunk/user/www 2>/dev/null || true
+
+      - name: Find dnsmasq backend options
+        run: |
+          grep -R -n -E \
+            'dns_cache|cache_size|cache-size|dnsmasq_options|dnsmasq_opts|dnsmq_opts|dnsmasq.*nvram' \
+            trunk/user/rc trunk/user/shared trunk/user/httpd 2>/dev/null || true
       
       - name: Build
         run: |
