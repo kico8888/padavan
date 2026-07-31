@@ -122,6 +122,12 @@ jobs:
 
           echo "========== Verify HTTPS certificate script =========="
           sed -n '1,12p' trunk/user/httpd/https-cert.sh
+
+      - name: Find dnsmasq advanced fields
+        run: |
+          grep -R -n -E \
+            'cachesize|dnsmasq.*options|dnsmasq_options|dnsmasq_cache' \
+            trunk/user/www trunk/user/httpd 2>/dev/null || true
       
       - name: Build
         run: |
