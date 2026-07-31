@@ -145,6 +145,14 @@ jobs:
           grep -R -n -E \
             'dns_cache|cache_size|cache-size|dnsmasq_options|dnsmasq_opts|dnsmq_opts|dnsmasq.*nvram' \
             trunk/user/rc trunk/user/shared trunk/user/httpd 2>/dev/null || true
+
+      - name: Show dnsmasq cache implementation
+        run: |
+          sed -n '315,375p' trunk/user/rc/src/services_ex.c
+
+          echo "========== DNS_RELAY_CACHE_MAX definition =========="
+          grep -R -n 'DNS_RELAY_CACHE_MAX' \
+            trunk/user 2>/dev/null || true
       
       - name: Build
         run: |
