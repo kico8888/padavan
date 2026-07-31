@@ -100,10 +100,8 @@ jobs:
 
       - name: Show HTTPS certificate script
         run: |
-          find trunk -name 'https-cert.sh' -print
-          grep -R -n -A80 -B10 \
-            '/usr/bin/openssl\|OPENSSL=' \
-            trunk/user 2>/dev/null || true
+          echo "========== https-cert.sh =========="
+          sed -n '1,240p' trunk/user/httpd/https-cert.sh
       
       - name: Build
         run: |
