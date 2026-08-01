@@ -153,6 +153,12 @@ jobs:
           echo "========== DNS_RELAY_CACHE_MAX definition =========="
           grep -R -n 'DNS_RELAY_CACHE_MAX' \
             trunk/user 2>/dev/null || true
+
+       - name: Find storage save timer
+         run: |
+           grep -R -n -A20 -B20 \
+             'storage_save_time' \
+             trunk/user 2>/dev/null || true
       
       - name: Build
         run: |
