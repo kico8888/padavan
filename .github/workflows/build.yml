@@ -160,31 +160,30 @@ jobs:
             'storage_save_time' \
             trunk/user 2>/dev/null || true
 
-      - name: Locate Raeth driver
+      - name: Show MI-R3P Raeth configuration
         run: |
-          echo "========== Current directory =========="
-          pwd
-          ls -la
+          echo "========== Active RAETH kernel config =========="
+          grep -nE \
+            'CONFIG_RAETH|CONFIG_GE1|CONFIG_GE2|CONFIG_PDMA|CONFIG_QDMA|CONFIG_HW_NAT|CONFIG_HWNAT' \
+            trunk/configs/boards/MI-R3P/kernel-4.4.x.config \
+            trunk/configs/boards/MI-R3P/*.config \
+            trunk/.config \
+            2>/dev/null || true
 
-          echo "========== Locate kernel =========="
-          find . -maxdepth 4 -type d -name 'linux-4.4.x' -print
+          echo "========== RAETH config header =========="
+          sed -n '1,260p' \
+            trunk/linux-4.4.x/drivers/net/ethernet/raeth/raeth_config.h
 
-          echo "========== Locate Ethernet driver =========="
-          find . -type f \
-            \( -iname '*raeth*' \
-            -o -iname '*raether*' \
-            -o -iname '*mii_mgr*' \
-            -o -iname '*mtk_esw*' \
-            -o -iname '*hwnat*' \) \
-            | sort
+          echo "========== RAETH TX definitions =========="
+          grep -RniE \
+            'NUM_TX_DESC|TX_RING|QDMA|PDMA|CHECKSUM|TSO|GSO|SG_DMA|HW_VLAN|NETIF_F_' \
+            trunk/linux-4.4.x/drivers/net/ethernet/raeth \
+            | head -n 300
 
-          echo "========== Search Raeth strings =========="
-          grep -Rni \
-            --include='*.c' \
-            --include='*.h' \
-            --include='Makefile' \
-            -E 'Raeth STD|raeth|fe_dma_init|ei_start_xmit|NUM_TX_DESC|TX_RING_SIZE' \
-            . | head -n 300 || true
+          echo "========== MI-R3P build config location =========="
+          find trunk -type f \
+            \( -name '*MI-R3P*' -o -name '.config' -o -name 'kernel.config' \) \
+            -print
       
       - name: Build
         run: |
