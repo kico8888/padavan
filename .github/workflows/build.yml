@@ -159,6 +159,32 @@ jobs:
           grep -R -n -A20 -B20 \
             'storage_save_time' \
             trunk/user 2>/dev/null || true
+
+      - name: Locate Raeth driver
+        run: |
+          echo "========== Current directory =========="
+          pwd
+          ls -la
+
+          echo "========== Locate kernel =========="
+          find . -maxdepth 4 -type d -name 'linux-4.4.x' -print
+
+          echo "========== Locate Ethernet driver =========="
+          find . -type f \
+            \( -iname '*raeth*' \
+            -o -iname '*raether*' \
+            -o -iname '*mii_mgr*' \
+            -o -iname '*mtk_esw*' \
+            -o -iname '*hwnat*' \) \
+            | sort
+
+          echo "========== Search Raeth strings =========="
+          grep -Rni \
+            --include='*.c' \
+            --include='*.h' \
+            --include='Makefile' \
+            -E 'Raeth STD|raeth|fe_dma_init|ei_start_xmit|NUM_TX_DESC|TX_RING_SIZE' \
+            . | head -n 300 || true
       
       - name: Build
         run: |
