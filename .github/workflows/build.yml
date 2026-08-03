@@ -184,6 +184,25 @@ jobs:
           find trunk -type f \
             \( -name '*MI-R3P*' -o -name '.config' -o -name 'kernel.config' \) \
             -print
+
+      - name: Disable RAETH TSO
+        run: |
+          RAETH_CFG="trunk/linux-4.4.x/drivers/net/ethernet/raeth/raeth_config.h"
+
+          echo "========== Before =========="
+          grep -n 'CONFIG_RAETH_TSO' "$RAETH_CFG"
+
+          sed -i \
+            's/^[[:space:]]*#define[[:space:]]\+CONFIG_RAETH_TSO[[:space:]]*$/\/\* #define CONFIG_RAETH_TSO \*\//' \
+            "$RAETH_CFG"
+
+          echo "========== After =========="
+          grep -n 'CONFIG_RAETH_TSO' "$RAETH_CFG"
+
+          if grep -qE '^[[:space:]]*#define[[:space:]]+CONFIG_RAETH_TSO' "$RAETH_CFG"; then
+            echo "ERROR: CONFIG_RAETH_TSO is still enabled"
+            exit 1
+          fi
       
       - name: Build
         run: |
