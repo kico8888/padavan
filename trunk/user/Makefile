@@ -163,6 +163,7 @@ dir_$(CONFIG_FIRMWARE_INCLUDE_MENTOHUST)		+= mentohust
 dir_$(OPENSSH_ENABLED)				+= openssh
 dir_$(DROPBEAR_ENABLED)				+= dropbear
 dir_$(CONFIG_FIRMWARE_INCLUDE_HTOP)		+= htop
+dir_$(CONFIG_FIRMWARE_INCLUDE_SMARTMONTOOLS) += smartmontools
 dir_$(CONFIG_FIRMWARE_INCLUDE_NANO)		+= nano
 dir_$(CONFIG_FIRMWARE_INCLUDE_OPENVPN)		+= openvpn
 dir_$(CONFIG_FIRMWARE_INCLUDE_SSWAN)		+= strongswan
