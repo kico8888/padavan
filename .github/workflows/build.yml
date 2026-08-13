@@ -203,6 +203,11 @@ jobs:
             echo "ERROR: CONFIG_RAETH_TSO is still enabled"
             exit 1
           fi
+
+      - name: Test smartmontools source
+        run: |
+          cd trunk
+          make -C user/smartmontools download V=s
       
       - name: Build
         run: |
