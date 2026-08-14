@@ -322,7 +322,7 @@ get_eeprom_params(void)
 	}
 
 #if defined(FWBLDSTR)
-	if (strlen(FWBLDSTR) > 0 && strlen(FWBLDSTR) <= 4) {
+	if (strlen(FWBLDSTR) > 0 && strlen(FWBLDSTR) <= 8) {
 		strcat(fwver_sub, "-");
 		strcat(fwver_sub, FWBLDSTR);
 		strcat(fwver_sub, " USB NAS");
