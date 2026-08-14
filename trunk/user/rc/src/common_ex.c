@@ -321,12 +321,12 @@ get_eeprom_params(void)
 		sprintf(fwver, "%d.%d.%d.%d", buffer[0], buffer[1], buffer[2], buffer[3]);
 	}
 
-#if defined(FWBLDSTR)
-	if (strlen(FWBLDSTR) > 0 && strlen(FWBLDSTR) <= 8) {
-		strcat(fwver_sub, "-");
-		strcat(fwver_sub, FWBLDSTR);
-		strcat(fwver_sub, " USB NAS");
-	}
+#if defined(FWREVSTR)
+    if (strlen(FWREVSTR) > 0 && strlen(FWREVSTR) <= 8) {
+        strcat(fwver_sub, "_");
+        strcat(fwver_sub, FWREVSTR);
+        strcat(fwver_sub, " USB NAS");
+    }
 #endif
 	nvram_set_temp("productid", trim_r(productid));
 	nvram_set_temp("firmver", trim_r(fwver));
