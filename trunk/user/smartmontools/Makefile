@@ -9,6 +9,8 @@ PKG_HASH:=e9a61f641ff96ca95319edfb17948cd297d0cd3342736b2c49c99d4716fb993d
 
 include $(INCLUDE_DIR)/package.mk
 
+TARGET_LDFLAGS += -static-libstdc++
+
 CONFIGURE_ARGS += \
 	--without-libcap-ng \
 	--without-selinux \
